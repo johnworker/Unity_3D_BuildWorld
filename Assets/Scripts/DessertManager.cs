@@ -75,4 +75,21 @@ public class DessertManager : MonoBehaviour
         // 有些點心有縮放，例如大點心縮小到 0.7 所以實際尺寸為碰撞器 * 尺寸
         height += tempDessert.GetComponent<BoxCollider>().size.y * tempDessert.transform.localScale.y;
     }
+
+    private void Update()
+    {
+        Track(); 
+    }
+
+    private void Track()
+    {
+        // 如果 (開始蓋點心)
+        if (startDessert)
+        {
+            // 攝影機新座標 = (0，房子總高度，-10);
+            Vector3 posCam = new Vector3(0, height, -10);
+            // 攝影機.座標 = 三維向量.插植(攝影機.座標，攝影機新座標，0.3 * 速度 * 一個影格時間);
+            myCamera.position = Vector3.Lerp(myCamera.position, posCam, 0.3f * 10 * Time.deltaTime);
+        }
+    }
 }
