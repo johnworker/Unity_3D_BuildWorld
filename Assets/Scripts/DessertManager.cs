@@ -15,11 +15,21 @@ public class DessertManager : MonoBehaviour
     public GameObject[] desserts;
     [Header("晃動力道"), Range(0.5f, 10)]
     public float shakePower = 2f;
+    [Header("攝影機")]
+    public Transform myCamera;
 
     /// <summary>
     /// 用來儲存生成的點心物件
     /// </summary>
     private GameObject tempDessert;
+    /// <summary>
+    /// 開始蓋點心
+    /// </summary>
+    private bool startDessert;
+    /// <summary>
+    /// 房子總高度
+    /// </summary>
+    private float height;
 
     private void Start()
     {
@@ -45,5 +55,24 @@ public class DessertManager : MonoBehaviour
     {
         // 晃動位置剛體.速度 = 晃動位置.右邊 * 力道
         pointShakeRig.velocity = pointShake.right * shakePower;
+    }
+
+    /// <summary>
+    /// 蓋點心
+    /// </summary>
+    public void HouseDown()
+    {
+        // 暫存點心.變形.設定父物件(無);{功能：脫離晃動位置}
+        tempDessert.transform.SetParent(null);
+        // 暫存點心.取得元件<剛體>().運動學 = false;{功能：取消運動學，避免卡在空中}
+        tempDessert.GetComponent<Rigidbody>().isKinematic = false;
+        // 延遲調用函式("函式名稱"，延遲時間);
+        Invoke("CreateDessert", 1);
+        // 開始蓋點心
+        startDessert = true;
+
+        // 點心總高度 遞增指定 暫存點心.取得元件<盒形碰撞器>().尺寸.y * 點心尺寸.y
+        // 有些點心有縮放，例如大點心縮小到 0.7 所以實際尺寸為碰撞器 * 尺寸
+        height += tempDessert.GetComponent<BoxCollider>().size.y * tempDessert.transform.localScale.y;
     }
 }
