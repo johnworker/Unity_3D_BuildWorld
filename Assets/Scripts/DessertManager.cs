@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;       // 引用介面API
+using TMPro;
 
 public class DessertManager : MonoBehaviour
 {
@@ -17,6 +19,16 @@ public class DessertManager : MonoBehaviour
     public float shakePower = 2f;
     [Header("攝影機")]
     public Transform myCamera;
+    [Header("檢查遊戲失敗牆壁")]
+    public Transform checkWall;
+    [Header("結算畫面")]
+    public GameObject final;
+    [Header("蓋點心數量文字介面")]
+    public TextMeshProUGUI textDessertCount;
+    [Header("最佳數量文字介面")]
+    public TextMeshProUGUI textBest;
+    [Header("本次數量文字介面")]
+    public TextMeshProUGUI textCurrent;
 
     /// <summary>
     /// 用來儲存生成的點心物件
@@ -30,6 +42,14 @@ public class DessertManager : MonoBehaviour
     /// 房子總高度
     /// </summary>
     private float height;
+    /// <summary>
+    /// 第一個房子
+    /// </summary>
+    private Transform firstDessert;
+    /// <summary>
+    /// 點心總數
+    /// </summary>
+    private int count;
 
     private void Start()
     {
@@ -37,6 +57,11 @@ public class DessertManager : MonoBehaviour
         CreateDessert();
         // 重複調用函式("函式名稱"，調用時間，重複頻率);
         InvokeRepeating("Shake", 0, 3);
+    }
+
+    private void Update()
+    {
+        Track();
     }
 
     /// <summary>
@@ -66,6 +91,8 @@ public class DessertManager : MonoBehaviour
         tempDessert.transform.SetParent(null);
         // 暫存點心.取得元件<剛體>().運動學 = false;{功能：取消運動學，避免卡在空中}
         tempDessert.GetComponent<Rigidbody>().isKinematic = false;
+        // 暫存點心.取得元件<點心>().是否降落中 = true;{功能：確定房子降落中}
+        tempDessert.GetComponent<Dessert>().down = true;
         // 延遲調用函式("函式名稱"，延遲時間);
         Invoke("CreateDessert", 1);
         // 開始蓋點心
@@ -74,16 +101,27 @@ public class DessertManager : MonoBehaviour
         // 點心總高度 遞增指定 暫存點心.取得元件<盒形碰撞器>().尺寸.y * 點心尺寸.y
         // 有些點心有縮放，例如大點心縮小到 0.7 所以實際尺寸為碰撞器 * 尺寸
         height += tempDessert.GetComponent<BoxCollider>().size.y * tempDessert.transform.localScale.y;
-    }
 
-    private void Update()
-    {
-        Track(); 
+        // 如果還沒有第一個點心
+        if (!firstDessert)
+        {
+            // 第一個點心 = 暫存點心.變形
+            firstDessert = tempDessert.transform;
+            // 延遲調用函式("建立遊戲檢查失敗牆壁"，1.2秒)
+            Invoke("CreateCheckWall", 1.2f);
+            // 刪除(第一個點心.取得元件<點心>())
+            Destroy(firstDessert.GetComponent<Dessert>());
+        }
+
+        // 房子總數遞增
+        count++;
+        // 蓋點心數量文字介面.文字 = "點心數量：" + 點心總數;
+        textDessertCount.text = "點心數量：" + count;
     }
 
     /// <summary>
-    /// 攝影機追蹤
-    /// 懸吊點心物件位移
+    /// 懸吊點心物件往上位移
+    /// 攝影機追蹤目前高度
     /// </summary>
     private void Track()
     {
@@ -101,5 +139,35 @@ public class DessertManager : MonoBehaviour
             pointSuspention.position = Vector3.Lerp(pointSuspention.position, posSus, 0.3f * 10 * Time.deltaTime);
 
         }
+    }
+
+    /// <summary>
+    /// 建立檢查遊戲失敗牆壁
+    /// </summary>
+    private void CreateCheckWall()
+    {
+        // 生成(檢查遊戲失敗牆壁，第一個點心.座標，零角度)
+        Instantiate(checkWall, firstDessert.position, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// 遊戲結束：顯示結算畫面
+    /// </summary>
+    public void GameOver()
+    {
+        // 結算畫面.啟動設定(顯示)
+        final.SetActive(true);
+
+        // 本次數量文字介面.文字 = "本次數量：" + 點心總數
+        textCurrent.text = "本次數量：" + count;
+
+        // 如果 點心總數 > 玩家參考.取得整數("蓋點心最佳數量")
+        if (count > PlayerPrefs.GetInt("最佳數量"))
+        {
+            // 玩家參考.設定整數("蓋點心最佳數量"，點心總數)
+            PlayerPrefs.SetInt("最佳數量", count);
+        }
+        // 最佳數量文字介面.文字 = "最佳數量：" + 玩家參考.取得整數("蓋點心最佳數量")
+        textBest.text = "最佳數量：" + PlayerPrefs.GetInt("最佳數量");
     }
 }
