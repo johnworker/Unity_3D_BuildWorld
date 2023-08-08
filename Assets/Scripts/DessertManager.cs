@@ -31,6 +31,10 @@ public class DessertManager : MonoBehaviour
     public TextMeshProUGUI textCurrent;
     [Header("生成房子音效")]
     public AudioClip soundCreateDessert;
+    [Header("蓋點心音樂")]
+    public AudioClip soundBGMStart;
+    [Header("遊戲結束音樂")]
+    public AudioClip soundBGMGameOver;
 
     /// <summary>
     /// 用來儲存生成的點心物件
@@ -61,6 +65,7 @@ public class DessertManager : MonoBehaviour
     private void Start()
     {
         soundManager = FindObjectOfType<SoundManager>();
+        soundManager.PlayBGM(soundBGMStart, true);
         // 呼叫生成點心函式
         CreateDessert();
         // 重複調用函式("函式名稱"，調用時間，重複頻率);
@@ -79,6 +84,7 @@ public class DessertManager : MonoBehaviour
     {
         // 儲存生成出來的房子 = 實例化(點心預置物陣列[第一個]， 晃動位置);
         tempDessert = Instantiate(desserts[0], pointShake);
+        //soundManager.PlaySound(soundCreateDessert);
     }
 
     /// <summary>
@@ -177,5 +183,7 @@ public class DessertManager : MonoBehaviour
         }
         // 最佳數量文字介面.文字 = "最佳數量：" + 玩家參考.取得整數("蓋點心最佳數量")
         textBest.text = "最佳數量：" + PlayerPrefs.GetInt("最佳數量");
+        soundManager.PlayBGM(soundBGMGameOver, false);
+
     }
 }

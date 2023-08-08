@@ -760,10 +760,10 @@ MonoBehaviour:
   pointShake: {fileID: 1275286194}
   pointShakeRig: {fileID: 1275286196}
   desserts:
+  - {fileID: 821698135065478084, guid: fe963003600519f43bdcaa5f66ac0943, type: 3}
   - {fileID: 7163196541262101933, guid: 2d348c501b926174da0a8c587829ccc1, type: 3}
   - {fileID: 1811704106732740692, guid: 3193bc1b6fb90ad4f882ff44a3eb6495, type: 3}
   - {fileID: 2405454513006831803, guid: 06f52eaa35adc6d43a927c650b52057b, type: 3}
-  - {fileID: 821698135065478084, guid: fe963003600519f43bdcaa5f66ac0943, type: 3}
   shakePower: 3
   myCamera: {fileID: 382964049}
   checkWall: {fileID: 7731313021395581740, guid: da4a5f473a43a6548891a54189a54336, type: 3}
@@ -771,6 +771,9 @@ MonoBehaviour:
   textDessertCount: {fileID: 775877844}
   textBest: {fileID: 638374921}
   textCurrent: {fileID: 212588677}
+  soundCreateDessert: {fileID: 8300000, guid: 5001288581b915147b2bb32eafb7c63f, type: 3}
+  soundBGMStart: {fileID: 8300000, guid: 881eacc59fde9974bac62c0e01cec5e9, type: 3}
+  soundBGMGameOver: {fileID: 8300000, guid: 17f949d0116b14a4da965171838aff67, type: 3}
 --- !u!1001 &454206139
 PrefabInstance:
   m_ObjectHideFlags: 0
