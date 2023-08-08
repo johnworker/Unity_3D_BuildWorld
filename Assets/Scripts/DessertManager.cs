@@ -29,6 +29,8 @@ public class DessertManager : MonoBehaviour
     public TextMeshProUGUI textBest;
     [Header("本次數量文字介面")]
     public TextMeshProUGUI textCurrent;
+    [Header("生成房子音效")]
+    public AudioClip soundCreateDessert;
 
     /// <summary>
     /// 用來儲存生成的點心物件
@@ -51,8 +53,14 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     private int count;
 
+    /// <summary>
+    /// 點心管理器
+    /// </summary>
+    private SoundManager soundManager;
+
     private void Start()
     {
+        soundManager = FindObjectOfType<SoundManager>();
         // 呼叫生成點心函式
         CreateDessert();
         // 重複調用函式("函式名稱"，調用時間，重複頻率);
