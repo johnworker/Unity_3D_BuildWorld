@@ -92,6 +92,15 @@ public class DessertManager : MonoBehaviour
         {
             int randomIndex = Random.Range(0, desserts.Length);
             tempDessert = Instantiate(desserts[randomIndex], pointShake);
+
+            Renderer dessertRenderer = tempDessert.GetComponent<Renderer>();
+            if (dessertRenderer != null)
+            {
+                float randomHue = Random.Range(0f, 1f); // 隨機色相
+                Color newColor = Color.HSVToRGB(randomHue, 1f, 1f);
+                dessertRenderer.material.color = newColor;
+            }
+
         }
         else
         {
