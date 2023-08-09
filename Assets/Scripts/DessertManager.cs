@@ -87,16 +87,25 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     private void CreateDessert()
     {
-        // 儲存生成出來的房子 = 實例化(點心預置物陣列[第一個]， 晃動位置);
-        if(count < 5)
-            tempDessert = Instantiate(desserts[0], pointShake);
-        else if(count < 8)
-            tempDessert = Instantiate(desserts[1], pointShake);
-        else if(count < 12)
-            tempDessert = Instantiate(desserts[2], pointShake);
+        // 如果超過 16 層，隨機選擇 desserts[] 中的一個預製物
+        if (count >= 16)
+        {
+            int randomIndex = Random.Range(0, desserts.Length);
+            tempDessert = Instantiate(desserts[randomIndex], pointShake);
+        }
         else
-            tempDessert = Instantiate(desserts[3], pointShake);
-        soundManager.PlaySound(soundCreateDessert);
+        {
+            // 儲存生成出來的房子 = 實例化(點心預置物陣列[第一個]， 晃動位置);
+            if (count < 5)
+                tempDessert = Instantiate(desserts[0], pointShake);
+            else if (count < 8)
+                tempDessert = Instantiate(desserts[1], pointShake);
+            else if (count < 12)
+                tempDessert = Instantiate(desserts[2], pointShake);
+            else
+                tempDessert = Instantiate(desserts[3], pointShake);
+            soundManager.PlaySound(soundCreateDessert);
+        }
     }
 
     /// <summary>
@@ -104,6 +113,12 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     private void Shake()
     {
+        // 如果已經達到了第 10 層，將 shakePower 設置為 3，否則保持原值
+        if (count >= 3)
+        {
+            shakePower = 3f;
+        }
+
         // 晃動位置剛體.速度 = 晃動位置.右邊 * 力道
         pointShakeRig.velocity = pointShake.right * shakePower;
     }
