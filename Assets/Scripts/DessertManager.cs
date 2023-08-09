@@ -88,7 +88,14 @@ public class DessertManager : MonoBehaviour
     private void CreateDessert()
     {
         // 儲存生成出來的房子 = 實例化(點心預置物陣列[第一個]， 晃動位置);
-        tempDessert = Instantiate(desserts[0], pointShake);
+        if(count < 5)
+            tempDessert = Instantiate(desserts[0], pointShake);
+        else if(count < 8)
+            tempDessert = Instantiate(desserts[1], pointShake);
+        else if(count < 12)
+            tempDessert = Instantiate(desserts[2], pointShake);
+        else
+            tempDessert = Instantiate(desserts[3], pointShake);
         soundManager.PlaySound(soundCreateDessert);
     }
 
@@ -106,6 +113,9 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     public void HouseDown()
     {
+        // 如果 遊戲結束 或者 目前沒有點心 跳出
+        if (gameOver || !tempDessert) return;
+
         // 暫存點心.變形.設定父物件(無);{功能：脫離晃動位置}
         tempDessert.transform.SetParent(null);
         // 暫存點心.取得元件<剛體>().運動學 = false;{功能：取消運動學，避免卡在空中}
@@ -132,10 +142,12 @@ public class DessertManager : MonoBehaviour
             Destroy(firstDessert.GetComponent<Dessert>());
         }
 
-        // 房子總數遞增
+        // 點心總數遞增
         count++;
         // 蓋點心數量文字介面.文字 = "點心數量：" + 點心總數;
         textDessertCount.text = "點心數量：" + count;
+        // 目前沒有點心
+        tempDessert = null;
     }
 
     /// <summary>
@@ -174,6 +186,11 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        // 如果 遊戲結束 跳出
+        if (gameOver) return;
+        // 遊戲結束
+        gameOver = true;
+
         // 結算畫面.啟動設定(顯示)
         final.SetActive(true);
 
