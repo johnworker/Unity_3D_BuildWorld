@@ -62,6 +62,11 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     private SoundManager soundManager;
 
+    /// <summary>
+    /// 遊戲結束
+    /// </summary>
+    private bool gameOver;
+
     private void Start()
     {
         soundManager = FindObjectOfType<SoundManager>();
@@ -84,7 +89,7 @@ public class DessertManager : MonoBehaviour
     {
         // 儲存生成出來的房子 = 實例化(點心預置物陣列[第一個]， 晃動位置);
         tempDessert = Instantiate(desserts[0], pointShake);
-        //soundManager.PlaySound(soundCreateDessert);
+        soundManager.PlaySound(soundCreateDessert);
     }
 
     /// <summary>
