@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;       // 引用介面API
 using TMPro;
+using System.Collections;
 
 public class DessertManager : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class DessertManager : MonoBehaviour
     public AudioClip soundBGMStart;
     [Header("遊戲結束音樂")]
     public AudioClip soundBGMGameOver;
+
+    [Header("動畫控制器")]
+    public Animator ani;
+
+    [Header("張開參數")]
+    public string parOpen = "張開";
 
     /// <summary>
     /// 用來儲存生成的點心物件
@@ -75,6 +82,8 @@ public class DessertManager : MonoBehaviour
         CreateDessert();
         // 重複調用函式("函式名稱"，調用時間，重複頻率);
         InvokeRepeating("Shake", 0, 3);
+
+
     }
 
     private void Update()
@@ -135,7 +144,7 @@ public class DessertManager : MonoBehaviour
     /// <summary>
     /// 蓋點心
     /// </summary>
-    public void HouseDown()
+    public void DessertDown()
     {
         // 如果 遊戲結束 或者 目前沒有點心 跳出
         if (gameOver || !tempDessert) return;
@@ -144,6 +153,10 @@ public class DessertManager : MonoBehaviour
         tempDessert.transform.SetParent(null);
         // 暫存點心.取得元件<剛體>().運動學 = false;{功能：取消運動學，避免卡在空中}
         tempDessert.GetComponent<Rigidbody>().isKinematic = false;
+
+        // 播放动画
+        ani.SetBool(parOpen, true);
+
         // 暫存點心.取得元件<點心>().是否降落中 = true;{功能：確定房子降落中}
         tempDessert.GetComponent<Dessert>().down = true;
         // 延遲調用函式("函式名稱"，延遲時間);
@@ -166,13 +179,18 @@ public class DessertManager : MonoBehaviour
             Destroy(firstDessert.GetComponent<Dessert>());
         }
 
+
         // 點心總數遞增
         count++;
+
         // 蓋點心數量文字介面.文字 = "點心數量：" + 點心總數;
         textDessertCount.text = "點心數量：" + count;
+
         // 目前沒有點心
         tempDessert = null;
     }
+
+
 
     /// <summary>
     /// 懸吊點心物件往上位移
@@ -184,7 +202,7 @@ public class DessertManager : MonoBehaviour
         if (startDessert)
         {
             // 攝影機新座標 = (0，點心總高度，-10);
-            Vector3 posCam = new Vector3(0, height, -10);
+            Vector3 posCam = new Vector3(0, height + 1f, -10);
             // 攝影機.座標 = 三維向量.插植(攝影機.座標，攝影機新座標，0.3 * 速度 * 一個影格時間);
             myCamera.position = Vector3.Lerp(myCamera.position, posCam, 0.3f * 10 * Time.deltaTime);
 
