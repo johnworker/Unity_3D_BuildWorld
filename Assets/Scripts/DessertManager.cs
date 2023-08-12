@@ -30,18 +30,20 @@ public class DessertManager : MonoBehaviour
     public TextMeshProUGUI textBest;
     [Header("本次數量文字介面")]
     public TextMeshProUGUI textCurrent;
-    [Header("生成房子音效")]
+    [Header("生成點心音效")]
     public AudioClip soundCreateDessert;
+    [Header("結束音效")]
+    public AudioClip soundEnd;
     [Header("蓋點心音樂")]
     public AudioClip soundBGMStart;
     [Header("遊戲結束音樂")]
     public AudioClip soundBGMGameOver;
 
     [Header("動畫控制器")]
-    public Animator ani;
+    //public Animator ani;
 
     [Header("張開參數")]
-    public string parOpen = "張開";
+    //public string parOpen = "張開";
 
     /// <summary>
     /// 用來儲存生成的點心物件
@@ -56,7 +58,7 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     private float height;
     /// <summary>
-    /// 第一個房子
+    /// 第一個點心
     /// </summary>
     private Transform firstDessert;
     /// <summary>
@@ -113,16 +115,40 @@ public class DessertManager : MonoBehaviour
         }
         else
         {
-            // 儲存生成出來的房子 = 實例化(點心預置物陣列[第一個]， 晃動位置);
+            // 儲存生成出來的點心 = 實例化(點心預置物陣列[第一個]， 晃動位置);
+            int prefabIndex = 0;
             if (count < 5)
-                tempDessert = Instantiate(desserts[0], pointShake);
+            { 
+                prefabIndex = 0;
+                //tempDessert = Instantiate(desserts[0], pointShake); 
+            }
             else if (count < 8)
-                tempDessert = Instantiate(desserts[1], pointShake);
+            { 
+                prefabIndex = 1;
+                //tempDessert = Instantiate(desserts[1], pointShake);
+            }
             else if (count < 12)
-                tempDessert = Instantiate(desserts[2], pointShake);
+            {
+                prefabIndex = 2;
+                //tempDessert = Instantiate(desserts[2], pointShake);
+            }
             else
-                tempDessert = Instantiate(desserts[3], pointShake);
+            {
+                prefabIndex = 3;
+                //tempDessert = Instantiate(desserts[3], pointShake);
+            }
+            tempDessert = Instantiate(desserts[prefabIndex], pointShake);
+
+            Renderer dessertRenderer = tempDessert.GetComponent<Renderer>();
+            if (dessertRenderer != null)
+            {
+                float randomHue = Random.Range(0f, 1f);
+                Color newColor = Color.HSVToRGB(randomHue, 1f, 1f);
+                dessertRenderer.material.color = newColor;
+            }
+
             soundManager.PlaySound(soundCreateDessert);
+
         }
     }
 
@@ -155,7 +181,7 @@ public class DessertManager : MonoBehaviour
         tempDessert.GetComponent<Rigidbody>().isKinematic = false;
 
         // 播放动画
-        ani.SetBool(parOpen, true);
+        //ani.SetBool(parOpen, true);
 
         // 暫存點心.取得元件<點心>().是否降落中 = true;{功能：確定房子降落中}
         tempDessert.GetComponent<Dessert>().down = true;
@@ -188,6 +214,7 @@ public class DessertManager : MonoBehaviour
 
         // 目前沒有點心
         tempDessert = null;
+
     }
 
 
@@ -228,6 +255,9 @@ public class DessertManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+
+        soundManager.PlaySound(soundEnd);
+
         // 如果 遊戲結束 跳出
         if (gameOver) return;
         // 遊戲結束
