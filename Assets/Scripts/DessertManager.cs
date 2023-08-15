@@ -256,10 +256,11 @@ public class DessertManager : MonoBehaviour
     public void GameOver()
     {
 
-        soundManager.PlaySound(soundEnd);
-
         // 如果 遊戲結束 跳出
         if (gameOver) return;
+
+        soundManager.PlaySound(soundEnd);
+
         // 遊戲結束
         gameOver = true;
 
