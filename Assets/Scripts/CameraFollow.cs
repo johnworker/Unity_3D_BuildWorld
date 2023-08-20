@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
         if (target != null)
         {
             // Update the position of the camera to match the target's position
-            transform.position = new Vector3(-2f, target.position.y, transform.position.z);
+            transform.position = new Vector3(-1.5f, target.position.y, transform.position.z);
         }
     }
 }
