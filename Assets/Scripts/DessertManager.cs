@@ -67,7 +67,7 @@ public class DessertManager : MonoBehaviour
     private int count;
 
     /// <summary>
-    /// 點心管理器
+    /// 音效管理器
     /// </summary>
     private SoundManager soundManager;
 
@@ -75,6 +75,10 @@ public class DessertManager : MonoBehaviour
     /// 遊戲結束
     /// </summary>
     private bool gameOver;
+
+    // 用於引用 SpriteCollector 腳本的變量
+    public SpriteCollector spriteCollector;
+
 
     private void Start()
     {
@@ -85,12 +89,15 @@ public class DessertManager : MonoBehaviour
         // 重複調用函式("函式名稱"，調用時間，重複頻率);
         InvokeRepeating("Shake", 0, 3);
 
+        // 獲取 SpriteCollector 腳本組件
+        spriteCollector = GetComponent<SpriteCollector>();
 
     }
 
     private void Update()
     {
         Track();
+
     }
 
     /// <summary>
@@ -158,7 +165,7 @@ public class DessertManager : MonoBehaviour
     private void Shake()
     {
         // 如果已經達到了第 10 層，將 shakePower 設置為 3，否則保持原值
-        if (count >= 3)
+        if (count >= 10)
         {
             shakePower = 3f;
         }
@@ -209,8 +216,13 @@ public class DessertManager : MonoBehaviour
         // 點心總數遞增
         count++;
 
+
         // 蓋點心數量文字介面.文字 = "點心數量：" + 點心總數;
         textDessertCount.text = "點心數量：" + count;
+
+        // 調用 SpriteCollector 腳本中的 CollectEnergy 方法，增加能量
+        spriteCollector.CollectEnergy();
+
 
         // 目前沒有點心
         tempDessert = null;
@@ -239,6 +251,7 @@ public class DessertManager : MonoBehaviour
             pointSuspention.position = Vector3.Lerp(pointSuspention.position, posSus, 0.3f * 10 * Time.deltaTime);
 
         }
+
     }
 
     /// <summary>
