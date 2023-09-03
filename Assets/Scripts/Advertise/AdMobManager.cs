@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AdMobManager : MonoBehaviour
 {
+    private string bannerAdUnitId = "ca-app-pub-9310459943689922/9612758068";
     private BannerView bannerView;
 
     private void Start()
@@ -11,11 +12,13 @@ public class AdMobManager : MonoBehaviour
         MobileAds.Initialize(initStatus => { });
 
         // 創建一個橫幅廣告
-        bannerView = new BannerView("YOUR_BANNER_AD_UNIT_ID", AdSize.Banner, AdPosition.Bottom);
+        bannerView = new BannerView(bannerAdUnitId, AdSize.Banner, AdPosition.Bottom);
 
         // 載入並顯示橫幅廣告
         AdRequest request = new AdRequest.Builder().Build();
         bannerView.LoadAd(request);
+
+        bannerView.Show();
     }
 
     private void OnDestroy()
