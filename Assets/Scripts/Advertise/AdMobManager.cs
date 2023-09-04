@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AdMobManager : MonoBehaviour
 {
-    private string bannerAdUnitId = "ca-app-pub-9310459943689922/9612758068";
+    private string bannerAdUnitId = "ca-app-pub-3940256099942544/5224354917";
     private BannerView bannerView;
 
     private void Start()
