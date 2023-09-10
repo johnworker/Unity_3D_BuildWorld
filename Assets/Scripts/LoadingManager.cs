@@ -14,6 +14,14 @@ public class LoadingManager : MonoBehaviour
     public Image imageLoading;
     [Header("提示文字")]
     public GameObject tip;
+    [Header("載入圖片：精靈")]
+    public Image imageElf;
+
+    public float minScale = 1.2f;  // 最小縮放值
+    public float maxScale = 2.5f;  // 最大縮放值
+    public float scaleSpeed = 1.0f;  // 縮放速度
+
+    private bool scalingUp = true;  // 是否正在放大
 
     /// <summary>
     /// 載入場景
@@ -47,4 +55,19 @@ public class LoadingManager : MonoBehaviour
     {
         StartCoroutine(Loading());
     }
+
+    private void Update()
+    {
+        // 實現圖片大小忽大忽小的效果
+        float scaleFactor = scalingUp ? scaleSpeed * Time.deltaTime : -scaleSpeed * Time.deltaTime;
+        imageElf.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
+
+        // 檢查是否需要改變方向
+        if (imageElf.transform.localScale.x < minScale || imageElf.transform.localScale.x > maxScale)
+        {
+            scalingUp = !scalingUp;
+        }
+    }
+
+
 }
