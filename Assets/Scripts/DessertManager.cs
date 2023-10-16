@@ -134,6 +134,10 @@ public class DessertManager : MonoBehaviour
                 prefabIndex = 1;
                 //tempDessert = Instantiate(desserts[1], pointShake);
             }
+            else if (count > 8)
+            {
+                 // 更改速度为3.5
+            }
             else if (count < 12)
             {
                 prefabIndex = 2;

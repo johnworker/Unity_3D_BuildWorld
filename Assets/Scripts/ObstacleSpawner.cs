@@ -13,7 +13,7 @@ public class ObstacleSpawner : MonoBehaviour
         InvokeRepeating("CreateObstacle", 1.0f, 8.0f);
     }
 
-    void CreateObstacle()
+    public void CreateObstacle()
     {
         // 在X軸上生成障礙物
         GameObject obstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
