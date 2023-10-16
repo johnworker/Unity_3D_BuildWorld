@@ -35,7 +35,7 @@ public class FireSpriteSkill : MonoBehaviour
     // 在某个事件或条件下调用此方法来触发销毁点心克隆的操作
     public void UseFireSkill()
     {
-        // 调用火精灵技能的方法来销毁随机的点心克隆，传递要销毁的数量（这里是3）
+        // 调用火精灵技能的方法来销毁随机的点心克隆，传递要销毁的数量（这里是1）
         fireSpriteSkill.BurnRandomDesserts(1);
         DestroyEffect();
         soundManager.PlaySound(soundExplode);
