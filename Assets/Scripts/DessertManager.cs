@@ -79,6 +79,7 @@ public class DessertManager : MonoBehaviour
     // 用於引用 SpriteCollector 腳本的變量
     public SpriteCollector spriteCollector;
 
+    public ObstacleSpawner obstacleSpawner;
 
     private void Start()
     {
@@ -92,6 +93,9 @@ public class DessertManager : MonoBehaviour
         // 獲取 SpriteCollector 腳本組件
         spriteCollector = GetComponent<SpriteCollector>();
 
+        // 监听事件
+        obstacleSpawner.onSpeedChange.AddListener(HandleSpeedChange);
+
     }
 
     private void Update()
@@ -99,6 +103,7 @@ public class DessertManager : MonoBehaviour
         Track();
 
     }
+
 
     /// <summary>
     /// 建立點心
@@ -136,7 +141,7 @@ public class DessertManager : MonoBehaviour
             }
             else if (count > 8)
             {
-                 // 更改速度为3.5
+                obstacleSpawner.ChangeSpeed(3.5f);
             }
             else if (count < 12)
             {
@@ -162,6 +167,12 @@ public class DessertManager : MonoBehaviour
 
         }
     }
+
+    private void HandleSpeedChange()
+    {
+        // 在这里执行速度变更后的操作
+    }
+
 
     /// <summary>
     /// 晃動效果
