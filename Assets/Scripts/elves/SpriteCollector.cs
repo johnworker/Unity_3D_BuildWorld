@@ -9,16 +9,16 @@ public class SpriteCollector : MonoBehaviour
     public Image fillImage; // 引用UI Image组件，用于表示能量條的填充状态
 
     private int maxEnergy = 100; // 最大能量值
-    private int currentEnergy = 0; // 当前能量值
+    private int currentEnergy = 0; // 當前能量值
 
-    public SpriteSkill selectedSkill; // 存储当前选择的精灵技能
-    private float cooldownTimer = 0; // 记录技能冷却时间的计时器
+    public SpriteSkill selectedSkill; // 儲存目前選擇的精靈技能
+    private float cooldownTimer = 0; // 記錄技能冷卻時間的計時器
 
-    private bool skillUsed = false; // 用于标记技能是否被使用过
+    private bool skillUsed = false; // 用於標記技能是否被使用過
 
     public Button skillButton; // 技能按钮
 
-    // 定义使用技能的事件
+    // 定義使用技能的事件
     public UnityEvent onUseSkill = new UnityEvent();
 
 
@@ -84,7 +84,7 @@ public class SpriteCollector : MonoBehaviour
     // 在每次增加一层點心时调用此方法
     public void CollectEnergy()
     {
-        currentEnergy += 10; // 增加10點能量
+        currentEnergy += 50; // 增加10點能量
 
         // 确保当前能量不超过最大值
         currentEnergy = Mathf.Min(currentEnergy, maxEnergy);

@@ -945,6 +945,7 @@ MonoBehaviour:
   soundBGMStart: {fileID: 8300000, guid: 881eacc59fde9974bac62c0e01cec5e9, type: 3}
   soundBGMGameOver: {fileID: 8300000, guid: 17f949d0116b14a4da965171838aff67, type: 3}
   spriteCollector: {fileID: 422840746}
+  obstacleSpawner: {fileID: 717652074}
 --- !u!114 &422840746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,7 +1696,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 5776984730034603596, guid: bd7055e392dae844ba5757c2471c4e81, type: 3}
-  moveSpeed: 2
+  defaultMoveSpeed: 2
+  currentMoveSpeed: 0
+  onSpeedChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 422840745}
+        m_TargetAssemblyTypeName: DessertManager, Assembly-CSharp
+        m_MethodName: HandleSpeedChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rotationSpeed: 90
 --- !u!54 &717652075
 Rigidbody:
@@ -2413,6 +2430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSpriteSkill: {fileID: 1026675032}
   dessertManager: {fileID: 422840745}
+  obstacleSpawner: {fileID: 717652074}
   crushEffect: {fileID: 7888912322806037680, guid: cf055613fc3bc3445a37f9258380575c, type: 3}
   soundExplode: {fileID: 8300000, guid: 38a5a91f63c2a7a458d61667124cbd26, type: 3}
 --- !u!4 &1105578156 stripped

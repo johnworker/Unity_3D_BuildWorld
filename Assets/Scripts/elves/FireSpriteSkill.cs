@@ -10,6 +10,8 @@ public class FireSpriteSkill : MonoBehaviour
 
     public DessertManager dessertManager; // 引用 DessertManager 脚本
 
+    public ObstacleSpawner obstacleSpawner;
+
     /// <summary>
     /// 音效管理器
     /// </summary>
@@ -35,8 +37,11 @@ public class FireSpriteSkill : MonoBehaviour
     // 在某个事件或条件下调用此方法来触发销毁点心克隆的操作
     public void UseFireSkill()
     {
-        // 调用火精灵技能的方法来销毁随机的点心克隆，传递要销毁的数量（这里是1）
-        fireSpriteSkill.BurnRandomDesserts(1);
+        // 呼叫火精靈技能的方法來銷毀隨機的點心克隆，傳遞要銷毀的數量（這裡是1）
+        // fireSpriteSkill.BurnRandomDesserts(1);
+
+        // 呼叫 ObstacleSpawner 的銷毀障礙物方法
+        obstacleSpawner.DestroyObstacles();
         DestroyEffect();
         soundManager.PlaySound(soundExplode);
     }

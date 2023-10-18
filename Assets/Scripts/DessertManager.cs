@@ -81,6 +81,7 @@ public class DessertManager : MonoBehaviour
 
     public ObstacleSpawner obstacleSpawner;
 
+
     private void Start()
     {
         soundManager = FindObjectOfType<SoundManager>();
@@ -93,8 +94,6 @@ public class DessertManager : MonoBehaviour
         // 獲取 SpriteCollector 腳本組件
         spriteCollector = GetComponent<SpriteCollector>();
 
-        // 监听事件
-        obstacleSpawner.onSpeedChange.AddListener(HandleSpeedChange);
 
     }
 
@@ -139,10 +138,6 @@ public class DessertManager : MonoBehaviour
                 prefabIndex = 1;
                 //tempDessert = Instantiate(desserts[1], pointShake);
             }
-            else if (count > 8)
-            {
-                obstacleSpawner.ChangeSpeed(3.5f);
-            }
             else if (count < 12)
             {
                 prefabIndex = 2;
@@ -166,11 +161,6 @@ public class DessertManager : MonoBehaviour
             soundManager.PlaySound(soundCreateDessert);
 
         }
-    }
-
-    private void HandleSpeedChange()
-    {
-        // 在这里执行速度变更后的操作
     }
 
 

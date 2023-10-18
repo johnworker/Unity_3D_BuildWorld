@@ -6,21 +6,28 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject obstaclePrefab; // 障礙物的預置物
     public float defaultMoveSpeed = 2.0f; // 預設障礙物的移動速度
-    private float currentMoveSpeed; // 當前障礙物的移動速度
+    public float currentMoveSpeed; // 當前障礙物的移動速度
 
-    public UnityEvent onSpeedChange; // 定义事件
+    public UnityEvent onSpeedChange; // 定義事件
 
     
     public float rotationSpeed = 90.0f; // 旋轉速度
 
+    private bool speedChangeScheduled = false;
+
+    private Coroutine speedChangeCoroutine;
+
     void Start()
     {
         currentMoveSpeed = defaultMoveSpeed;
-        InvokeRepeating("CreateObstacle", 1.0f, 8.0f);
 
         // 呼叫CreateObstacle函數，每隔8秒重複一次，一開始等待1秒
         InvokeRepeating("CreateObstacle", 1.0f, 8.0f);
 
+        // 在 120 秒後觸發速度更改
+        speedChangeCoroutine = StartCoroutine(ScheduleSpeedChange(60.0f, 3.0f));
+
+        StartCoroutine(StopSpeedChangeCoroutine(60.0f));
     }
 
     public void CreateObstacle()
@@ -62,5 +69,44 @@ public class ObstacleSpawner : MonoBehaviour
             obstacle.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
             yield return null;
         }
+    }
+
+    private IEnumerator ScheduleSpeedChange(float delay, float newSpeed)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (!speedChangeScheduled)
+        {
+            speedChangeScheduled = true;
+            ChangeSpeed(newSpeed);
+        }
+    }
+
+    // 新的方法，用於銷毀生成的障礙物
+    public void DestroyObstacles()
+    {
+        // 取得場景中所有的障礙物
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("障礙物");
+
+        // 遍歷障礙物清單並銷毀它們
+        foreach (GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
+    }
+
+    // 在指定延迟后停止速度更改协程
+    private IEnumerator StopSpeedChangeCoroutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // 停止速度更改协程，如果协程正在运行
+        if (speedChangeCoroutine != null)
+        {
+            StopCoroutine(speedChangeCoroutine);
+        }
+
+        // 启动另一个速度更改协程
+        speedChangeCoroutine = StartCoroutine(ScheduleSpeedChange(8.0f, 4.0f));
     }
 }
