@@ -25,9 +25,10 @@ public class ObstacleSpawner : MonoBehaviour
         InvokeRepeating("CreateObstacle", 1.0f, 8.0f);
 
         // 在 120 秒後觸發速度更改
-        speedChangeCoroutine = StartCoroutine(ScheduleSpeedChange(60.0f, 3.0f));
+        StartCoroutine(ChangeSpeedAfterDelay(120.0f, 3.0f));
 
-        StartCoroutine(StopSpeedChangeCoroutine(60.0f));
+        StartCoroutine(ChangeSpeedAfterDelay(120.0f, 4.0f));
+
     }
 
     public void CreateObstacle()
@@ -71,17 +72,6 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator ScheduleSpeedChange(float delay, float newSpeed)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (!speedChangeScheduled)
-        {
-            speedChangeScheduled = true;
-            ChangeSpeed(newSpeed);
-        }
-    }
-
     // 新的方法，用於銷毀生成的障礙物
     public void DestroyObstacles()
     {
@@ -95,18 +85,13 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
-    // 在指定延迟后停止速度更改协程
-    private IEnumerator StopSpeedChangeCoroutine(float delay)
+    // 在指定延迟后更改速度
+    private IEnumerator ChangeSpeedAfterDelay(float delay, float newSpeed)
     {
         yield return new WaitForSeconds(delay);
 
-        // 停止速度更改协程，如果协程正在运行
-        if (speedChangeCoroutine != null)
-        {
-            StopCoroutine(speedChangeCoroutine);
-        }
-
-        // 启动另一个速度更改协程
-        speedChangeCoroutine = StartCoroutine(ScheduleSpeedChange(8.0f, 4.0f));
+        // 更改速度
+        ChangeSpeed(newSpeed);
     }
+
 }
