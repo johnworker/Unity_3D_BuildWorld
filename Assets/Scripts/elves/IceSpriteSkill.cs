@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 [System.Serializable]
 public class IceSpriteSkill : MonoBehaviour
 {
     public float freezeDuration; // 冰精灵特有属性：冰冻持续时间
     private bool isFrozen = false; // 是否冻结中
+    public IceSpriteSkill iceSprite;
+
+    public DessertManager dessertManager; // 引用 DessertManager 脚本
+
 
     public void UseIceSkill()
     {
@@ -53,4 +58,34 @@ public class IceSpriteSkill : MonoBehaviour
         // 标记为不再冻结状态
         isFrozen = false;
     }
+
+    public void UseArrangementSkill()
+    {
+        Arrangement();
+    }
+
+    public void Arrangement()
+    {
+        // 获取场景中所有的点心克隆
+        GameObject[] desserts = GameObject.FindGameObjectsWithTag("點心");
+
+        if (desserts.Length > 0)
+        {
+            // 按点心的高度升序排序（从低到高）
+            desserts = desserts.OrderBy(dessert => dessert.transform.position.y).ToArray();
+
+            // 获取最底部的点心
+            Transform bottomDessert = desserts[0].transform;
+
+            // 获取最底部点心的X轴和Z轴位置
+            Vector3 bottomPosition = new Vector3(bottomDessert.position.x, bottomDessert.position.y, bottomDessert.position.z);
+
+            // 遍历所有点心并将它们的X轴和Z轴位置设置为与最底部点心一致
+            foreach (GameObject dessert in desserts)
+            {
+                dessert.transform.position = new Vector3(bottomPosition.x, dessert.transform.position.y, bottomPosition.z);
+            }
+        }
+    }
+
 }

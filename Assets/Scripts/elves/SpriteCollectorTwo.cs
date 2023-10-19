@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class SpriteCollectorTwo : MonoBehaviour
+public class SpriteCollector : MonoBehaviour
 {
     public Image fillImage; // 引用UI Image组件，用于表示能量條的填充状态
 
@@ -52,6 +52,7 @@ public class SpriteCollectorTwo : MonoBehaviour
             skillButton.interactable = false;
         }
 
+        Debug.Log(fillImage.fillAmount);
 
     }
 

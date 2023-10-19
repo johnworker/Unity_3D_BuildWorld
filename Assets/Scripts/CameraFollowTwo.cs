@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollowTwo : MonoBehaviour
 {
     public Transform target; // Reference to the target (scene object) to follow
 
@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
         if (target != null)
         {
             // 更新相机位置以跟随目标
-            transform.position = new Vector3(-1.5f, target.position.y + 0.5f, transform.position.z);
+            transform.position = new Vector3(-1.5f, target.position.y - 1f, transform.position.z);
         }
     }
 }

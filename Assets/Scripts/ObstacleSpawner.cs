@@ -64,7 +64,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private IEnumerator RotateObstacle(GameObject obstacle)
     {
-        while (true)
+        while (obstacle != null)
         {
             // 讓障礙物繞Z軸進行順時針旋轉
             obstacle.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);

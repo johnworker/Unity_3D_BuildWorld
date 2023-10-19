@@ -46,6 +46,7 @@ public class FireSpriteSkill : MonoBehaviour
         soundManager.PlaySound(soundExplode);
     }
 
+
     public void BurnRandomDesserts(int numberOfDessertsToBurn)
     {
         // 获取场景中所有的点心克隆
