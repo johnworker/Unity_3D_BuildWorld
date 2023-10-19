@@ -52,7 +52,6 @@ public class SpriteCollector : MonoBehaviour
             skillButton.interactable = false;
         }
 
-        Debug.Log(fillImage.fillAmount);
 
     }
 

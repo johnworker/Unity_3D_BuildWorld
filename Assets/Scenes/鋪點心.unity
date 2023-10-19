@@ -944,8 +944,10 @@ MonoBehaviour:
   soundEnd: {fileID: 8300000, guid: 98021ae072b2ce84489fef86323cba50, type: 3}
   soundBGMStart: {fileID: 8300000, guid: 881eacc59fde9974bac62c0e01cec5e9, type: 3}
   soundBGMGameOver: {fileID: 8300000, guid: 17f949d0116b14a4da965171838aff67, type: 3}
+  count: 0
   spriteCollector: {fileID: 422840746}
   obstacleSpawner: {fileID: 717652074}
+  iceSprite: {fileID: 0}
 --- !u!114 &422840746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1329,13 +1331,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 614196934}
+  - component: {fileID: 614196935}
   m_Layer: 0
   m_Name: "\u8D85\u7D1A\u6392\u5217\u6280\u80FD"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &614196934
 Transform:
   m_ObjectHideFlags: 0
@@ -1351,6 +1354,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &614196935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614196933}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75e7970219c47f4da21df253e1e9daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillImageTwo: {fileID: 1054726967}
+  fillAmountIncreasePerLayer: 10
+  maxFillAmount: 100
 --- !u!1 &635144779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,6 +2486,7 @@ MonoBehaviour:
   obstacleSpawner: {fileID: 717652074}
   crushEffect: {fileID: 7888912322806037680, guid: cf055613fc3bc3445a37f9258380575c, type: 3}
   soundExplode: {fileID: 8300000, guid: 38a5a91f63c2a7a458d61667124cbd26, type: 3}
+  soundarrangement: {fileID: 8300000, guid: dc71b9e6e4822e84aa566aec1ac8a899, type: 3}
 --- !u!1 &1054726965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,23 +2663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 382964049}
---- !u!114 &1114858972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114858968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 489ee9aa624fe6e4b913980e7b5620b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireSpriteSkill: {fileID: 1114858972}
-  dessertManager: {fileID: 422840745}
-  obstacleSpawner: {fileID: 717652074}
-  crushEffect: {fileID: 7888912322806037680, guid: cf055613fc3bc3445a37f9258380575c, type: 3}
-  soundExplode: {fileID: 8300000, guid: 38a5a91f63c2a7a458d61667124cbd26, type: 3}
 --- !u!114 &1114858973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3290,7 +3292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1305580009
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4905,7 +4907,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7CBE\u9748\u6280\u80FD\u6309\u92151"
+  m_text: "\u7CBE\u9748\u6280\u80FD\u6309\u9215"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 326559653646f564392c5671afd710ea, type: 2}
   m_sharedMaterial: {fileID: 4167472765804565867, guid: 326559653646f564392c5671afd710ea, type: 2}
@@ -5499,7 +5501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1795220713
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5577,7 +5579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1821604981
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5680,9 +5682,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IceSpriteSkill, Assembly-CSharp
-        m_MethodName: UseIceSkill
+      - m_Target: {fileID: 614196935}
+        m_TargetAssemblyTypeName: DessertSkill, Assembly-CSharp
+        m_MethodName: UseArrangementSkill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -12,6 +12,8 @@ public class FireSpriteSkill : MonoBehaviour
 
     public ObstacleSpawner obstacleSpawner;
 
+    private int dessertCount = 0;
+
     /// <summary>
     /// 音效管理器
     /// </summary>
@@ -22,6 +24,9 @@ public class FireSpriteSkill : MonoBehaviour
 
     [Header("爆炸音效")]
     public AudioClip soundExplode;
+
+    [Header("排列音效")]
+    public AudioClip soundarrangement;
 
     private void Awake()
     {
@@ -42,8 +47,12 @@ public class FireSpriteSkill : MonoBehaviour
 
         // 呼叫 ObstacleSpawner 的銷毀障礙物方法
         obstacleSpawner.DestroyObstacles();
+        //Arrangement();
+        //soundManager.PlaySound(soundarrangement);
         DestroyEffect();
         soundManager.PlaySound(soundExplode);
+
+        // 排列技能設定為每10層後才能使用一次
     }
 
 
@@ -86,4 +95,29 @@ public class FireSpriteSkill : MonoBehaviour
         }
 
     }
+
+    public void Arrangement()
+    {
+        // 获取场景中所有的点心克隆
+        GameObject[] desserts = GameObject.FindGameObjectsWithTag("點心");
+
+        if (desserts.Length > 0)
+        {
+            // 按点心的高度升序排序（从低到高）
+            desserts = desserts.OrderBy(dessert => dessert.transform.position.y).ToArray();
+
+            // 获取最底部的点心
+            Transform bottomDessert = desserts[0].transform;
+
+            // 获取最底部点心的X轴和Z轴位置
+            Vector3 bottomPosition = new Vector3(bottomDessert.position.x, bottomDessert.position.y, bottomDessert.position.z);
+
+            // 遍历所有点心并将它们的X轴和Z轴位置设置为与最底部点心一致
+            foreach (GameObject dessert in desserts)
+            {
+                dessert.transform.position = new Vector3(bottomPosition.x, dessert.transform.position.y, bottomPosition.z);
+            }
+        }
+    }
+
 }

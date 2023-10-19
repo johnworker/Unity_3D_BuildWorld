@@ -99,6 +99,5 @@ public class SpriteCollectorTwo : MonoBehaviour
             skillUsed = false;
             UpdateEnergyBar(); // 更新UI能量條以显示重置后的值
         }
-
     }
 }

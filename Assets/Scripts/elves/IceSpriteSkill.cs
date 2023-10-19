@@ -59,11 +59,6 @@ public class IceSpriteSkill : MonoBehaviour
         isFrozen = false;
     }
 
-    public void UseArrangementSkill()
-    {
-        Arrangement();
-    }
-
     public void Arrangement()
     {
         // 获取场景中所有的点心克隆

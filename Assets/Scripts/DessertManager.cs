@@ -48,7 +48,7 @@ public class DessertManager : MonoBehaviour
     /// <summary>
     /// 用來儲存生成的點心物件
     /// </summary>
-    private GameObject tempDessert;
+    public GameObject tempDessert;
     /// <summary>
     /// 開始蓋點心
     /// </summary>
@@ -64,7 +64,7 @@ public class DessertManager : MonoBehaviour
     /// <summary>
     /// 點心總數
     /// </summary>
-    private int count;
+    public int count;
 
     /// <summary>
     /// 音效管理器
@@ -80,6 +80,8 @@ public class DessertManager : MonoBehaviour
     public SpriteCollector spriteCollector;
 
     public ObstacleSpawner obstacleSpawner;
+
+    public IceSpriteSkill iceSprite;
 
 
     private void Start()
@@ -170,7 +172,7 @@ public class DessertManager : MonoBehaviour
     private void Shake()
     {
         // 如果已經達到了第 10 層，將 shakePower 設置為 3，否則保持原值
-        if (count >= 10)
+        if (count >= 20)
         {
             shakePower = 3f;
         }
