@@ -17,6 +17,21 @@ public class ObstacleSpawner : MonoBehaviour
 
     private Coroutine speedChangeCoroutine;
 
+    /// <summary>
+    /// 音效管理器
+    /// </summary>
+    private SoundManager soundManager;
+
+
+    [Header("滾入音效")]
+    public AudioClip soundFly;
+
+    private void Awake()
+    {
+        soundManager = FindObjectOfType<SoundManager>();
+    }
+
+
     void Start()
     {
         currentMoveSpeed = defaultMoveSpeed;
@@ -35,6 +50,8 @@ public class ObstacleSpawner : MonoBehaviour
     {
         // 在X軸上生成障礙物
         GameObject obstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
+
+        soundManager.PlaySound(soundFly);
 
         obstacle.transform.eulerAngles = new Vector3(-90, 180, 0);
 

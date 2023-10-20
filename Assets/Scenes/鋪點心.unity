@@ -944,6 +944,7 @@ MonoBehaviour:
   soundEnd: {fileID: 8300000, guid: 98021ae072b2ce84489fef86323cba50, type: 3}
   soundBGMStart: {fileID: 8300000, guid: 881eacc59fde9974bac62c0e01cec5e9, type: 3}
   soundBGMGameOver: {fileID: 8300000, guid: 17f949d0116b14a4da965171838aff67, type: 3}
+  tempDessert: {fileID: 0}
   count: 0
   spriteCollector: {fileID: 422840746}
   obstacleSpawner: {fileID: 717652074}
@@ -1753,20 +1754,10 @@ MonoBehaviour:
   currentMoveSpeed: 0
   onSpeedChange:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 422840745}
-        m_TargetAssemblyTypeName: DessertManager, Assembly-CSharp
-        m_MethodName: HandleSpeedChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   rotationSpeed: 90
+  soundFly: {fileID: 8300000, guid: 7e9e38a38261a334f90f0fbce0cccc87, type: 3}
+  soundHit: {fileID: 8300000, guid: d65d382a82978db49be10bfac90384c3, type: 3}
 --- !u!54 &717652075
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5070,7 +5061,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7339195758888384150, guid: 26fdbd9f822e6154aaf1ca2f7472cac4, type: 3}
       propertyPath: m_Volume
-      value: 0.7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7339195758888384151, guid: 26fdbd9f822e6154aaf1ca2f7472cac4, type: 3}
       propertyPath: m_RootOrder

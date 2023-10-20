@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5416428960340649881}
   - component: {fileID: -4587483813832138623}
   - component: {fileID: 2658514921396095013}
+  - component: {fileID: 1639219031123622366}
   m_Layer: 0
   m_Name: "\u5DE7\u514B\u529B\u7403"
   m_TagString: "\u969C\u7919\u7269"
@@ -114,3 +115,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1639219031123622366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776984730034603596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b20f57d976ff8458b0583216315b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundHit: {fileID: 8300000, guid: d65d382a82978db49be10bfac90384c3, type: 3}

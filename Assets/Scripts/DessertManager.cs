@@ -83,6 +83,7 @@ public class DessertManager : MonoBehaviour
 
     public IceSpriteSkill iceSprite;
 
+    public int prefabIndex { get; internal set; }
 
     private void Start()
     {
